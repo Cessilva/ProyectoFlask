@@ -10,8 +10,10 @@ def index():
 
 @app.route('/procesar', methods=['POST'])
 def procesar():
-    #guardamos en una variable lo ingresado por el usuario
+    #Texto del input
     textingres = request.form.get("descripcion")
+    #Metodo seleccionado
+    boton = request.form["metodo"]
     if textingres=="":
         output = request.files["adjunto"]
         if output.filename == "":
@@ -25,25 +27,10 @@ def procesar():
         for linea in archivo.readlines():
             print (linea)
         archivo.close()
-        return render_template("resultado.html", resultado=linea)
+        #Texto del archivo 
+        return render_template("resultado.html", resultado=linea+"  "+boton)
     else:
-        return render_template("resultado.html", resultado=textingres)
-
-# @app.route('/seleccionar', methods=['POST'])
-# def seleccionar():
-    #guardamos en una variable lo ingresado por el usuario
-    
-        # Manda el archivo a get file para que se presente tal cual esta
-    # return redirect(url_for("get_file",filename=filename))
-    #codigo para trabajar la variable 
-    
-    #	
-	#ponemos el resultado en una nueva web.    
-    
-
-# @app.route("/uploads/<filename>")
-# def get_file(filename):
-#     return send_from_directory(app.config["UPLOAD_FOLDER"],filename)
+        return render_template("resultado.html", resultado=textingres+"  "+boton)
 
 @app.route('/cool_form', methods=['GET', 'POST'])
 def cool_form():
