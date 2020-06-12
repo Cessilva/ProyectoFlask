@@ -23,11 +23,13 @@ def procesar():
 def seleccionar():
     #guardamos en una variable lo ingresado por el usuario
     output = request.files["adjunto"]
+    if output.filename == "":
+        return render_template("resultado.html", resultado="Archivo no seleccionado")
     filename=output.filename
     output.save(os.path.join(app.config["UPLOAD_FOLDER"],filename))
     print("...............")
     direccion= os.path.join(app.config["UPLOAD_FOLDER"],filename)
-    
+
     archivo = open(direccion,'r')
     for linea in archivo.readlines():
         print (linea)
@@ -43,6 +45,18 @@ def seleccionar():
 @app.route("/uploads/<filename>")
 def get_file(filename):
     return send_from_directory(app.config["UPLOAD_FOLDER"],filename)
+
+@app.route('/cool_form', methods=['GET', 'POST'])
+def cool_form():
+    if request.method == 'POST':
+        # do stuff when the form is submitted
+
+        # redirect to end the POST handling
+        # the redirect can be to the same route or somewhere else
+        return redirect(url_for('index'))
+
+    # show the form, it wasn't submitted
+    return render_template('index.html')
 
 if __name__=="__main__":
     app.run(debug=True)
