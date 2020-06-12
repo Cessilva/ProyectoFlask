@@ -6,8 +6,14 @@ def index():
 
 @app.route('/procesar', methods=['POST'])
 def procesar():
-    descripcion = request.form.get("descripcion")
-    return render_template("resultado.html", descripcion=descripcion)
+    #guardamos en una variable lo ingresado por el usuario
+    textingres = request.form.get("descripcion")
+    
+    #codigo para trabajar la variable 
+
+	
+	#ponemos el resultado en una nueva web.    
+    return render_template("resultado.html", resultado=textingres)
 
 if __name__=="__main__":
     app.run(debug=True)
