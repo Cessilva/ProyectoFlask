@@ -1,5 +1,9 @@
-from flask import Flask,render_template,request
+from flask import Flask,render_template,request,redirect,url_for,send_from_directory
+import os
+UPLOAD_FOLDER=os.path.abspath("./uploads")
+#Aqui se van a guardar nuestros archivos 
 app=Flask(__name__)
+app.config["UPLOAD_FOLDER"]=UPLOAD_FOLDER
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -14,6 +18,31 @@ def procesar():
 	
 	#ponemos el resultado en una nueva web.    
     return render_template("resultado.html", resultado=textingres)
+
+@app.route('/seleccionar', methods=['POST'])
+def seleccionar():
+    #guardamos en una variable lo ingresado por el usuario
+    output = request.files["adjunto"]
+    filename=output.filename
+    output.save(os.path.join(app.config["UPLOAD_FOLDER"],filename))
+    print("...............")
+    direccion= os.path.join(app.config["UPLOAD_FOLDER"],filename)
+    
+    archivo = open(direccion,'r')
+    for linea in archivo.readlines():
+        print (linea)
+    archivo.close()
+    # Manda el archivo a get file para que se presente tal cual esta
+    # return redirect(url_for("get_file",filename=filename))
+    #codigo para trabajar la variable 
+    
+    #	
+	#ponemos el resultado en una nueva web.    
+    return render_template("resultado.html", resultado=linea)
+
+@app.route("/uploads/<filename>")
+def get_file(filename):
+    return send_from_directory(app.config["UPLOAD_FOLDER"],filename)
 
 if __name__=="__main__":
     app.run(debug=True)
