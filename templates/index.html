@@ -31,9 +31,9 @@
 					<nav id="nav">
 						<ul>
 							<li><a href="#intro" class="active">Introducción</a></li>
-							<li><a href="#first">Calificador</a></li>
-							<li><a href="#second">Selector</a></li>
-							<li><a href="#cta">Otro2</a></li>
+							<li><a href="#first">Agrega</a></li>
+							<li><a href="#second">Selecciona</a></li>
+							<li><a href="#cta">Visualiza</a></li>
 						</ul>
 					</nav>
 
@@ -54,71 +54,65 @@
 							</section>
 
 						<!-- First Section -->
+						
 							<section id="first" class="main special">
 								<div class="spotlight">
 									<div class="content">
-										<header class="major">
-											<center><h2>Paso 1: Agrega una descripción o adjunta un archivo de extensión .txt</h2></center>
-										</header>
-										<div class="box alt">
-											<div class="row gtr-uniform">
-												<div class="col-6">
-													<form method="post" action="{{url_for('procesar')}}">
-														<div class="col-12">
-															<textarea name="descripcion" id="demo-message" placeholder="Ingresa la reseña de la pelicula" rows="6"></textarea>
+										<form method="post" action="{{url_for('procesar')}}" enctype="multipart/form-data">
+											<header class="major">
+												<center><h2>Paso 1: Agrega una descripción o adjunta un archivo de extensión .txt</h2></center>
+											</header>
+															<div class="box alt">
+																<div class="row gtr-uniform">
+																	<div class="col-6">			
+																			<div class="col-12">
+																				<textarea name="descripcion" id="demo-message" placeholder="Ingresa la reseña de la pelicula" rows="6"></textarea>
+																			</div>
+																			<br>
+																	</div>
+																	<div class="col-1">ó</div>
+																	<div class="col-5">
+																	
+																			<div class="col-12">
+																				<input type="file" name="adjunto" accept=".txt" /><br><br>
+																			</div>
+																	</div>
+																</div>
+															</div>
 														</div>
-														<br>
-														<div class="col-12">
-															<ul class="actions">
-																<li><input type="submit" value="Aceptar descripción" class="primary" /></li>
-																<li><input type="reset" value="Reset" /></li>
-															</ul>
-														</div>
-													</form>
-												</div>
-												<div class="col-1">ó</div>
-												<div class="col-5">
-													<form method="post" action="{{url_for('seleccionar')}}" enctype="multipart/form-data">
-														<div class="col-12">
-															<input type="file" name="adjunto" accept=".txt" /><br><br>
-															<input type="submit" value="UPLOAD" class="primary" />
-														</div>
-													</form>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</section>
+													</div>
+												</section>
 
-						<!-- Second Section -->
-							<section id="second" class="main special">
-								<header class="major">
-									<h2>Paso 2: Selecciona el método</h2>
-									<ul class="actions fit small">
-										<li><a href="#" class="button primary fit small">SMV+Ngrams</a></li>
-										<li><a href="#" class="button primary fit small">SVM</a></li>
-										<li><a href="#" class="button primary fit small">Ngrams</a></li>
-									</ul>
-									<ul class="actions fit small">
-										<li><a href="#" class="button primary fit small">TFIDF</a></li>
-										<li><a href="#" class="button primary fit small">WordCounts</a></li>
-										<li><a href="#" class="button primary fit small">Naive_Bayes</a></li>
-									</ul>
-								</header>
-							</section>
-						<!-- Get Started -->
-							<section id="cta" class="main special">
-								<header class="major">
-									<h2>Paso 3: Visualiza los resultados</h2>
-								</header>
-								<footer class="major">
-									<ul class="actions special">
-										<li><a href="generic.html" class="button primary">Enviar</a></li>
-										<li><a href="generic.html" class="button">Resetear</a></li>
-									</ul>
-								</footer>
-							</section>
+											<!-- Second Section -->
+												<section id="second" class="main special">
+													<header class="major">
+														<h2>Paso 2: Selecciona el método</h2>
+														<ul class="actions fit small">
+															<li><a href="#" class="button primary fit small">SMV+Ngrams</a></li>
+															<li><a href="#" class="button primary fit small">SVM</a></li>
+															<li><a href="#" class="button primary fit small">Ngrams</a></li>
+														</ul>
+														<ul class="actions fit small">
+															<li><a href="#" class="button primary fit small">TFIDF</a></li>
+															<li><a href="#" class="button primary fit small">WordCounts</a></li>
+															<li><a href="#" class="button primary fit small">Naive_Bayes</a></li>
+														</ul>
+													</header>
+												</section>
+											<!-- Get Started -->
+												<section id="cta" class="main special">
+													<header class="major">
+														<h2>Paso 3: Visualiza los resultados</h2>
+													</header>
+													<center><footer class="major">
+														<ul class="actions">
+															&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+															<li><input type="submit" value="Aceptar" class="primary" /></li>
+															<li><input type="reset" value="Reset" /></li>
+														</ul>			
+													</footer></center>
+												</section>
+										</form>
 					</div>
 				<!-- Footer -->
 					<footer id="footer">		

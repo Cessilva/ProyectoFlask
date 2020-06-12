@@ -12,39 +12,38 @@ def index():
 def procesar():
     #guardamos en una variable lo ingresado por el usuario
     textingres = request.form.get("descripcion")
-    
-    #codigo para trabajar la variable 
+    if textingres=="":
+        output = request.files["adjunto"]
+        if output.filename == "":
+            return render_template("resultado.html", resultado="Archivo no seleccionado")
+        filename=output.filename
+        output.save(os.path.join(app.config["UPLOAD_FOLDER"],filename))
+        print("...............")
+        direccion= os.path.join(app.config["UPLOAD_FOLDER"],filename)
 
-	
-	#ponemos el resultado en una nueva web.    
-    return render_template("resultado.html", resultado=textingres)
+        archivo = open(direccion,'r')
+        for linea in archivo.readlines():
+            print (linea)
+        archivo.close()
+        return render_template("resultado.html", resultado=linea)
+    else:
+        return render_template("resultado.html", resultado=textingres)
 
-@app.route('/seleccionar', methods=['POST'])
-def seleccionar():
+# @app.route('/seleccionar', methods=['POST'])
+# def seleccionar():
     #guardamos en una variable lo ingresado por el usuario
-    output = request.files["adjunto"]
-    if output.filename == "":
-        return render_template("resultado.html", resultado="Archivo no seleccionado")
-    filename=output.filename
-    output.save(os.path.join(app.config["UPLOAD_FOLDER"],filename))
-    print("...............")
-    direccion= os.path.join(app.config["UPLOAD_FOLDER"],filename)
-
-    archivo = open(direccion,'r')
-    for linea in archivo.readlines():
-        print (linea)
-    archivo.close()
-    # Manda el archivo a get file para que se presente tal cual esta
+    
+        # Manda el archivo a get file para que se presente tal cual esta
     # return redirect(url_for("get_file",filename=filename))
     #codigo para trabajar la variable 
     
     #	
 	#ponemos el resultado en una nueva web.    
-    return render_template("resultado.html", resultado=linea)
+    
 
-@app.route("/uploads/<filename>")
-def get_file(filename):
-    return send_from_directory(app.config["UPLOAD_FOLDER"],filename)
+# @app.route("/uploads/<filename>")
+# def get_file(filename):
+#     return send_from_directory(app.config["UPLOAD_FOLDER"],filename)
 
 @app.route('/cool_form', methods=['GET', 'POST'])
 def cool_form():
