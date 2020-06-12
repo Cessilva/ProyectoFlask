@@ -47,18 +47,18 @@
 										<header class="major">
 											<center><h2>Calificador de peliculas basado en reseñas</h2></center>
 										</header>
-										<form method="post" action="#">
+										<form method="post" action="{{url_for('procesar')}}">
 											<div class="col-6 col-12-small">
 												<input type="checkbox" id="demo-human" name="demo-human" checked>
 												<label for="demo-human">Not a robot</label>
 											</div>
 											<div class="col-12">
-												<textarea name="demo-message" id="demo-message" placeholder="Ingresa la reseña de la pelicula" rows="6"></textarea>
+												<textarea name="descripcion" id="demo-message" placeholder="Ingresa la reseña de la pelicula" rows="6"></textarea>
 											</div>
 											<br>
 											<div class="col-12">
 												<ul class="actions">
-													<li><input type="submit" value="Send Message" class="primary" /></li>
+													<li><input type="submit" value="Enviar descripcion" class="primary" /></li>
 													<li><input type="reset" value="Reset" /></li>
 												</ul>
 											</div>
