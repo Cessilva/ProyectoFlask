@@ -19,14 +19,7 @@ def procesar():
     #Metodo seleccionado
     boton = request.form["metodo"]
 
-    resultado,exactitud = clasificadorReview(textingres,boton)
-
-    print(resultado[0])
-
-    if resultado[0] == 1:
-        clasificacion = "Buena Pelicula"
-    else:
-        clasificacion = "Mala Pelicula"
+    
 
 
     if textingres=="":
@@ -45,6 +38,13 @@ def procesar():
         #Texto del archivo 
         return render_template("resultado.html", resultado=linea+"  "+boton)
     else:
+        resultado,exactitud = clasificadorReview(textingres,boton)
+        print(resultado[0])
+        if resultado[0] == 1:
+            clasificacion = "Buena Pelicula"
+        else:
+            clasificacion = "Mala Pelicula"
+        
         return render_template("resultado.html", resultado=textingres+ " "+boton+" "+clasificacion 
             + " " + "Precisión"  +exactitud)
 
