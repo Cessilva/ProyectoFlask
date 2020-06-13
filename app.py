@@ -32,14 +32,23 @@ def procesar():
         print("...............")
         direccion= os.path.join(app.config["UPLOAD_FOLDER"],filename)
 
-
+        nombrePelicula = filename.replace(".txt", "")
         archivo = open(direccion,'r')
         print("Aqui necesito limpiar el texto de entrada")
         review = archivo.read()
         archivo.close()
-        review = preprocesamiento_reviews(review)
-        print(review)
-        return render_template("resultado.html", resultado=review+"  "+boton)
+        txt = [review]
+        data = preprocesamiento_reviews(txt)
+        resul = data[0]
+
+        res,exactitud = clasificadorReview(resul,boton)
+        print(res[0])
+        if res[0] == 1:
+            clasificacion = "Buena Pelicula"
+        else:
+            clasificacion = "Mala Pelicula"
+
+        return render_template("resultado.html", review=resul, metodo = "Metodo: "+ boton, classi = nombrePelicula + " es una "+ clasificacion, exactitud = "exactitud: " + exactitud)
     else:
         res,exactitud = clasificadorReview(textingres,boton)
         print(res[0])
@@ -48,8 +57,7 @@ def procesar():
         else:
             clasificacion = "Mala Pelicula"
         
-        return render_template("resultado.html", resultado=textingres+ " "+boton+" "+clasificacion 
-            + " " + "Precisión: "  +exactitud)
+        return render_template("resultado.html", review=textingres, metodo = "Metodo: "+boton, classi = clasificacion, exactitud = "exactitud: " + exactitud)
 
 @app.route('/cool_form', methods=['GET', 'POST'])
 def cool_form():
