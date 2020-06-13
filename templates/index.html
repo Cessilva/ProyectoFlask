@@ -1,7 +1,11 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
+<<<<<<< HEAD
+		<title>CalificadorPeliculas</title>
+=======
 		<title>Proyecto final</title>
+>>>>>>> b34bacc7cbfd61c8bb2b30a5ef5e697c69ae1e8e
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet"  href="{{ url_for('static', filename='css/main.css') }}" />
 		<noscript><link rel="stylesheet"  href="{{ url_for('static', filename='css/noscript.css') }}"/></noscript>
@@ -17,7 +21,7 @@
 								<div class="col-3"><span class="image fit"><img src="{{url_for('static', filename='imgs/LogoUnam.png')}}" alt="" /></span></div>
 								<div class="col-6">
 									<span class="logo"><img src="{{url_for('static', filename='imgs/cine.png')}}" alt="" width="100" height="100" /></span>
-						            <h1>Calificador de películas</h1>
+						            <h1>Calificador de películas basado en reviews</h1>
 									<p><b>Colaboradores:</b><br />
 									Barcenas Martinez Edgar Daniel <br />
 									Martinez Troncoso Julio Cesar <br />
@@ -48,6 +52,11 @@
 									Clave:2932<br/>
 									Grupo:01</p>
 								</header>
+<<<<<<< HEAD
+								<!-- 
+								<p class="content">Nam elementum nisl et mi a commodo porttitor. Morbi sit amet nisl eu arcu faucibus hendrerit vel a risus. Nam a orci mi, elementum ac arcu sit amet, fermentum pellentesque et purus. Integer maximus varius lorem, sed convallis diam accumsan sed. Etiam porttitor placerat sapien, sed eleifend a enim pulvinar faucibus semper quis ut arcu. Ut non nisl a mollis est efficitur vestibulum. Integer eget purus nec nulla mattis et accumsan ut magna libero. Morbi auctor iaculis porttitor. Sed ut magna ac risus et hendrerit scelerisque. Praesent eleifend lacus in lectus aliquam porta. Cras eu ornare dui curabitur lacinia.</p>
+						-->
+=======
 						
 								<p class="content">
 									Somos un equipo amante del arte en la expresión cinematográfica. 
@@ -55,6 +64,7 @@ Actualmente la gran cantidad de películas que se han producido y el tiempo redu
 Con ayuda de erramientas que nos proporciona el lenguaje de programación (Python), basandonos en el procesamiento del lenguaje natural que se ocupa de la comprensión y el procesamiento del lenguaje humano.
 									</p>
 						
+>>>>>>> b34bacc7cbfd61c8bb2b30a5ef5e697c69ae1e8e
 							</section>
 
 						<!-- First Section -->
@@ -66,53 +76,57 @@ Con ayuda de erramientas que nos proporciona el lenguaje de programación (Pytho
 											<header class="major">
 												<center><h2>Paso 1: Agrega una descripción o adjunta un archivo de extensión .txt</h2></center>
 											</header>
-															<div class="box alt">
-																<div class="row gtr-uniform">
-																	<div class="col-6">			
-																			<div class="col-12">
-																				<textarea name="descripcion" id="demo-message" placeholder="Ingresa la reseña de la pelicula" rows="6"></textarea>
-																			</div>
-																			<br>
-																			<ul class="actions">									
-																				<li><input type="reset" value="Reset" /></li>
-																			</ul>	
-																	</div>
-																	<div class="col-1">ó
-																		
-																	</div>
-																	<div class="col-5">
-																	
-																			<div class="col-12">
-																				<input type="file" name="adjunto" accept=".txt" /><br><br>
-																			</div>
-																	</div>
-																</div>
+											<div class="box alt">
+												<div class="row gtr-uniform">
+													<div class="col-6">			
+															<div class="col-12">
+																<textarea name="descripcion" id="demo-message" placeholder="Ingresa la reseña de la pelicula" rows="6"></textarea>
 															</div>
-														</div>
+															<br>
+															<ul class="actions">									
+																<li><input type="reset" value="Reset" /></li>
+															</ul>	
 													</div>
-												</section>
+													<div class="col-1">ó
+														
+													</div>
+													<div class="col-5">
+													
+															<div class="col-12">
+																<input type="file" name="adjunto" accept=".txt" /><br><br>
+															</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</section>
 												
-											<!-- Second Section -->
-												<section id="second" class="main special">
-													<header class="major">
-														<h2>Paso 2: Selecciona el método y visualiza</h2>
-														<ul class="actions fit small">
-															<li><input type="submit" name="metodo" class="button primary fit small" value="SVM+Ngrams"></input></li>
-															<li><input type="submit" name="metodo" class="button primary fit small" value="SVM"></input></li>
-															<li><input type="submit" name="metodo" class="button primary fit small" value="Ngrams"></input></li>
-														</ul>
-														<ul class="actions fit small">
-															<li><input type="submit" name="metodo" class="button primary fit small" value="TFIDF"></input></li>
-															<li><input type="submit" name="metodo" class="button primary fit small" value="WordCounts"></input></li>
-															<li><input type="submit" name="metodo" class="button primary fit small" value="Naive_Bayes"></input></li>
-														</ul>					
-													</header>
-												</section>
-										</form>
+							<!-- Second Section -->
+								<section id="second" class="main special">
+									<header class="major">
+										<h2>Paso 2: Selecciona el método y visualiza</h2>
+										<ul class="actions fit small">
+											<li><input type="submit" name="metodo" class="button primary fit small" value="SVM+Ngrams"></input></li>
+											<li><input type="submit" name="metodo" class="button primary fit small" value="SVM"></input></li>
+											<li><input type="submit" name="metodo" class="button primary fit small" value="Ngrams"></input></li>
+										</ul>
+										<ul class="actions fit small">
+											<li><input type="submit" name="metodo" class="button primary fit small" value="TFIDF"></input></li>
+											<li><input type="submit" name="metodo" class="button primary fit small" value="WordCounts"></input></li>
+											<li><input type="submit" name="metodo" class="button primary fit small" value="Naive_Bayes"></input></li>
+										</ul>					
+									</header>
+								</section>
+						</form>
 					</div>
 				<!-- Footer -->
 					<footer id="footer">		
+<<<<<<< HEAD
+						<p class="copyright">Facultad de Ingenieria ❤ UNAM</p>
+=======
 						<p class="copyright">Made with ❤ in Mexico - Facultad de Ingenieria (Universidad Autonoma de Mexico)</p>
+>>>>>>> b34bacc7cbfd61c8bb2b30a5ef5e697c69ae1e8e
 					</footer>
 			</div>
 
