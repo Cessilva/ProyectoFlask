@@ -46,7 +46,7 @@ def procesar():
             clasificacion = "Mala Pelicula"
         
         return render_template("resultado.html", resultado=textingres+ " "+boton+" "+clasificacion 
-            + " " + "Precisión"  +exactitud)
+            + " " + "Precisión: "  +exactitud)
 
 @app.route('/cool_form', methods=['GET', 'POST'])
 def cool_form():

@@ -4,10 +4,12 @@ from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
 from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics import accuracy_score
 from sklearn.svm import LinearSVC
+from sklearn.linear_model import LogisticRegression
 
 '''
 Proyecto Final Procesamiento inteligente de Textos
@@ -241,26 +243,32 @@ def clasificadorReview(review,metodo):
         modelo,vector,exactitud = svm(reviews_train_clean,reviews_test_clean)
         reviews_new = [review]
         resultado = prediccion(modelo,reviews_new,vector)
+        
     elif metodo == "Naive_Bayes":
         modelo,vector,exactitud = Naive_Bayes(reviews_train_clean,reviews_test_clean)
         reviews_new = [review]
         resultado = prediccion(modelo,reviews_new,vector)
+
     elif metodo == "WordCounts":
         modelo,vector,exactitud = word_Counts(reviews_train_clean,reviews_test_clean)
         reviews_new = [review]
         resultado = prediccion(modelo,reviews_new,vector)
+
     elif metodo == "Ngrams":
         modelo,vector,exactitud = modeloNgrams(reviews_train_clean,reviews_test_clean)
         reviews_new = [review]
         resultado = prediccion(modelo,reviews_new,vector)
-    elif metodo == "SMV+Ngrams":
+        
+    elif metodo == "SVM+Ngrams":
         modelo,vector,exactitud = svmModificado(reviews_train_clean,reviews_test_clean)
         reviews_new = [review]
         resultado = prediccion(modelo,reviews_new,vector)
+        
     elif metodo == "TFIDF":
         modelo,vector,exactitud = TFIDF(reviews_train_clean,reviews_test_clean)
         reviews_new = [review]
         resultado = prediccion(modelo,reviews_new,vector)
+        
     return resultado,str(exactitud)
 
 
