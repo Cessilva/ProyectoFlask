@@ -241,26 +241,32 @@ def clasificadorReview(review,metodo):
         modelo,vector,exactitud = svm(reviews_train_clean,reviews_test_clean)
         reviews_new = [review]
         resultado = prediccion(modelo,reviews_new,vector)
+        
     elif metodo == "Naive_Bayes":
         modelo,vector,exactitud = Naive_Bayes(reviews_train_clean,reviews_test_clean)
         reviews_new = [review]
         resultado = prediccion(modelo,reviews_new,vector)
+
     elif metodo == "WordCounts":
         modelo,vector,exactitud = word_Counts(reviews_train_clean,reviews_test_clean)
         reviews_new = [review]
         resultado = prediccion(modelo,reviews_new,vector)
+
     elif metodo == "Ngrams":
         modelo,vector,exactitud = modeloNgrams(reviews_train_clean,reviews_test_clean)
         reviews_new = [review]
         resultado = prediccion(modelo,reviews_new,vector)
-    elif metodo == "SMV+Ngrams":
+        
+    elif metodo == "SVM+Ngrams":
         modelo,vector,exactitud = svmModificado(reviews_train_clean,reviews_test_clean)
         reviews_new = [review]
         resultado = prediccion(modelo,reviews_new,vector)
+        
     elif metodo == "TFIDF":
         modelo,vector,exactitud = TFIDF(reviews_train_clean,reviews_test_clean)
         reviews_new = [review]
         resultado = prediccion(modelo,reviews_new,vector)
+        
     return resultado,str(exactitud)
 
 
