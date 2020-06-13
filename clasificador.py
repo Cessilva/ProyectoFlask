@@ -102,6 +102,7 @@ def exactitudFinal(final,target,X,X_test):
     final.fit(X, target)
     print ("Final Exactitud: %s" 
        % accuracy_score(target, final.predict(X_test)))
+    return accuracy_score(target, final.predict(X_test))
 
 def prediccion(final,reviews_new,ngram_vectorizer):
     reviews_new_counts = ngram_vectorizer.transform(reviews_new)
@@ -118,8 +119,8 @@ def svmModificado(reviews_train_clean,reviews_test_clean):
     X_train, X_val, y_train, y_val = train_test_split(X, target, train_size = 0.75)
     c=0.01
     final = LinearSVC(C=c)
-    exactitudFinal(final,target,X,X_test)
-    return final,ngram_vectorizer
+    exactitud = exactitudFinal(final,target,X,X_test)
+    return final,ngram_vectorizer,exactitud
 
 '''
 Se incluyen pares de palabras para tener mejor precisión
@@ -137,8 +138,8 @@ def modeloNgrams(reviews_train_clean,reviews_test_clean):
    
     final_ngram = LogisticRegression(C=0.5)
     final_ngram.fit(X, target)
-    exactitudFinal(final_ngram,target,X,X_test)
-    return final_ngram,ngram_vectorizer
+    exactitud = exactitudFinal(final_ngram,target,X,X_test)
+    return final_ngram,ngram_vectorizer,exactitud
 '''
 Se utiliza la tecnica de recuento de palabras
 para verificar si una palabra aparece mas de una vez y 
@@ -155,8 +156,8 @@ def word_Counts(reviews_train_clean,reviews_test_clean):
     
     final_wc = LogisticRegression(C=0.05)
     final_wc.fit(X, target)
-    exactitudFinal(final_wc,target,X,X_test)
-    return final_wc,wc_vectorizer
+    exactitud = exactitudFinal(final_wc,target,X,X_test)
+    return final_wc,wc_vectorizer,exactitud
 
 '''
 Término frecuencia de documento inversa de frecuencia:
@@ -173,9 +174,9 @@ def TFIDF(reviews_train_clean,reviews_test_clean):
     
     final_tfidf = LogisticRegression(C=1)
     final_tfidf.fit(X, target)
-    exactitudFinal(final_tfidf,target,X,X_test)
+    exactitud = exactitudFinal(final_tfidf,target,X,X_test)
     # Final Accuracy: 0.882
-    return final_tfidf,tfidf_vectorizer
+    return final_tfidf,tfidf_vectorizer,exactitud
 
 ''' 
 SVM + Ngrams nos da la mejor precisió del 90%
@@ -191,8 +192,8 @@ def svmModificado(reviews_train_clean,reviews_test_clean):
     X_train, X_val, y_train, y_val = train_test_split(X, target, train_size = 0.75)
     c=0.01
     final = LinearSVC(C=c)
-    exactitudFinal(final,target,X,X_test)
-    return final,ngram_vectorizer
+    exactitud =  exactitudFinal(final,target,X,X_test)
+    return final,ngram_vectorizer,exactitud
 
 '''SVM clasificadol lineal con ngram_range=(1, 2)'''
 def svm(reviews_train_clean,reviews_test_clean):
@@ -205,8 +206,8 @@ def svm(reviews_train_clean,reviews_test_clean):
         X, target, train_size = 0.75)
     final_svm_ngram = LinearSVC(C=0.01)
     final_svm_ngram.fit(X, target)
-    exactitudFinal(final_svm_ngram,target,X,X_test)
-    return final_svm_ngram, ngram_vectorizer
+    exactitud =  exactitudFinal(final_svm_ngram,target,X,X_test)
+    return final_svm_ngram, ngram_vectorizer,exactitud
 
 '''
 Naive_Bayes
@@ -222,38 +223,74 @@ def Naive_Bayes(reviews_train_clean,reviews_test_clean):
     X_train, X_val, y_train, y_val = train_test_split(X, target, train_size = 0.75,)
     final_movie_vec = MultinomialNB()
     final_movie_vec.fit(X, target)
-    exactitudFinal(final_movie_vec,target,X,X_test)
-    return final_movie_vec,movie_vec
+    exactitud = exactitudFinal(final_movie_vec,target,X,X_test)
+    return final_movie_vec,movie_vec,exactitud
 
-''' Main '''
-'''Leemos y limpiamos los datos de entarda'''
-reviews_train = leer_review_entrenamiento()
-reviews_test = leer_review_prueba()
-reviews_train_clean = preprocesamiento_reviews(reviews_train)
-reviews_test_clean = preprocesamiento_reviews(reviews_test)
+def cargarLimpiarReviews():
+    reviews_train = leer_review_entrenamiento()
+    reviews_test = leer_review_prueba()
+    reviews_train_clean = preprocesamiento_reviews(reviews_train)
+    reviews_test_clean = preprocesamiento_reviews(reviews_test)
+    return reviews_train_clean,reviews_test_clean
+
+def clasificadorReview(review,metodo):
+    #cargar Datos
+    reviews_train_clean,reviews_test_clean = cargarLimpiarReviews()
+
+    if metodo == "SVM":
+        modelo,vector,exactitud = svm(reviews_train_clean,reviews_test_clean)
+        reviews_new = [review]
+        resultado = prediccion(modelo,reviews_new,vector)
+    elif metodo == "Naive_Bayes":
+        modelo,vector,exactitud = Naive_Bayes(reviews_train_clean,reviews_test_clean)
+        reviews_new = [review]
+        resultado = prediccion(modelo,reviews_new,vector)
+    elif metodo == "WordCounts":
+        modelo,vector,exactitud = word_Counts(reviews_train_clean,reviews_test_clean)
+        reviews_new = [review]
+        resultado = prediccion(modelo,reviews_new,vector)
+    elif metodo == "Ngrams":
+        modelo,vector,exactitud = modeloNgrams(reviews_train_clean,reviews_test_clean)
+        reviews_new = [review]
+        resultado = prediccion(modelo,reviews_new,vector)
+    elif metodo == "SMV+Ngrams":
+        modelo,vector,exactitud = svmModificado(reviews_train_clean,reviews_test_clean)
+        reviews_new = [review]
+        resultado = prediccion(modelo,reviews_new,vector)
+    elif metodo == "TFIDF":
+        modelo,vector,exactitud = TFIDF(reviews_train_clean,reviews_test_clean)
+        reviews_new = [review]
+        resultado = prediccion(modelo,reviews_new,vector)
+
+    print(exactitud)
+    return resultado,str(exactitud)
 
 
-#Entreamos el modelo
-modelo,vector = Naive_Bayes(reviews_train_clean,reviews_test_clean)
-review = "Bad bad Bad Spider-Man: Far from Home stylishly sets the stage for the next era of the MCU."
-reviews_new = [review]
-resultado = prediccion(modelo,reviews_new,vector)
-print(resultado)
+'''
+    #Entreamos el modelo
+    modelo,vector = Naive_Bayes(reviews_train_clean,reviews_test_clean)
+    review = "Bad bad Bad Spider-Man: Far from Home stylishly sets the stage for the next era of the MCU."
+    reviews_new = [review]
+    resultado = prediccion(modelo,reviews_new,vector)
+    print(resultado)
 
-#Entreamos el modelo
-modelo,vector = svm(reviews_train_clean,reviews_test_clean)
-review = "A breezily unpredictable blend of teen romance and superhero action, Spider-Man: Far from Home stylishly sets the stage for the next era of the MCU."
-reviews_new = [review]
-resultado = prediccion(modelo,reviews_new,vector)
-print(resultado)
+    #Entreamos el modelo
+    modelo,vector = svm(reviews_train_clean,reviews_test_clean)
+    review = "A breezily unpredictable blend of teen romance and superhero action, Spider-Man: Far from Home stylishly sets the stage for the next era of the MCU."
+    reviews_new = [review]
+    resultado = prediccion(modelo,reviews_new,vector)
+    print(resultado)
 
-#Entreamos el modelo
-modelo,vector = svmModificado(reviews_train_clean,reviews_test_clean)
-review = "A breezily unpredictable blend of teen romance and superhero action, Spider-Man: Far from Home stylishly sets the stage for the next era of the MCU."
-reviews_new = [review]
-resultado = prediccion(modelo,reviews_new,vector)
-print(resultado)
+    #Entreamos el modelo
+    modelo,vector = svmModificado(reviews_train_clean,reviews_test_clean)
+    reviews_new = [review]
+    resultado = prediccion(modelo,reviews_new,vector)
+    print(resultado)
+    '''
 
+
+
+'''
 feature_to_coef = {
     word: coef for word, coef in zip(
         vector.get_feature_names(), modelo.coef_[0]
@@ -266,8 +303,10 @@ for best_positive in sorted(
     reverse=True)[:30]:
     print (best_positive)
     
-print("\n\n")
+print("")
 for best_negative in sorted(
     feature_to_coef.items(), 
     key=lambda x: x[1])[:30]:
     print (best_negative)
+
+'''

@@ -1,5 +1,8 @@
 from flask import Flask,render_template,request,redirect,url_for,send_from_directory
 import os
+
+from clasificador import clasificadorReview
+
 UPLOAD_FOLDER=os.path.abspath("./uploads")
 #Aqui se van a guardar nuestros archivos 
 app=Flask(__name__)
@@ -10,10 +13,22 @@ def index():
 
 @app.route('/procesar', methods=['POST'])
 def procesar():
+
     #Texto del input
     textingres = request.form.get("descripcion")
     #Metodo seleccionado
     boton = request.form["metodo"]
+
+    resultado,exactitud = clasificadorReview(textingres,boton)
+
+    print(resultado[0])
+
+    if resultado[0] == 1:
+        clasificacion = "Buena Pelicula"
+    else:
+        clasificacion = "Mala Pelicula"
+
+
     if textingres=="":
         output = request.files["adjunto"]
         if output.filename == "":
@@ -30,7 +45,8 @@ def procesar():
         #Texto del archivo 
         return render_template("resultado.html", resultado=linea+"  "+boton)
     else:
-        return render_template("resultado.html", resultado=textingres+"  "+boton)
+        return render_template("resultado.html", resultado=textingres+ " "+boton+" "+clasificacion 
+            + " " + "Precisión"  +exactitud)
 
 @app.route('/cool_form', methods=['GET', 'POST'])
 def cool_form():
