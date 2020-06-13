@@ -38,9 +38,9 @@ def procesar():
         #Texto del archivo 
         return render_template("resultado.html", resultado=linea+"  "+boton)
     else:
-        resultado,exactitud = clasificadorReview(textingres,boton)
-        print(resultado[0])
-        if resultado[0] == 1:
+        res,exactitud = clasificadorReview(textingres,boton)
+        print(res[0])
+        if res[0] == 1:
             clasificacion = "Buena Pelicula"
         else:
             clasificacion = "Mala Pelicula"

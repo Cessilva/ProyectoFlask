@@ -261,8 +261,6 @@ def clasificadorReview(review,metodo):
         modelo,vector,exactitud = TFIDF(reviews_train_clean,reviews_test_clean)
         reviews_new = [review]
         resultado = prediccion(modelo,reviews_new,vector)
-
-    print(exactitud)
     return resultado,str(exactitud)
 
 
