@@ -2,6 +2,7 @@ from flask import Flask,render_template,request,redirect,url_for,send_from_direc
 import os
 
 from clasificador import clasificadorReview
+from clasificador import preprocesamiento_reviews
 
 UPLOAD_FOLDER=os.path.abspath("./uploads")
 #Aqui se van a guardar nuestros archivos 
@@ -31,12 +32,14 @@ def procesar():
         print("...............")
         direccion= os.path.join(app.config["UPLOAD_FOLDER"],filename)
 
+
         archivo = open(direccion,'r')
-        for linea in archivo.readlines():
-            print (linea)
+        print("Aqui necesito limpiar el texto de entrada")
+        review = archivo.read()
         archivo.close()
-        #Texto del archivo 
-        return render_template("resultado.html", resultado=linea+"  "+boton)
+        review = preprocesamiento_reviews(review)
+        print(review)
+        return render_template("resultado.html", resultado=review+"  "+boton)
     else:
         res,exactitud = clasificadorReview(textingres,boton)
         print(res[0])
