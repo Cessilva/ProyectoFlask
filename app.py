@@ -33,8 +33,10 @@ def procesar():
         direccion= os.path.join(app.config["UPLOAD_FOLDER"],filename)
 
         nombrePelicula = filename.replace(".txt", "")
+        nombrePelicula = filename.replace("1.", "")
+        nombrePelicula = filename.replace("_", " ")
         archivo = open(direccion,'r')
-        print("Aqui necesito limpiar el texto de entrada")
+        print("Entrenando modelo")
         review = archivo.read()
         archivo.close()
         txt = [review]
